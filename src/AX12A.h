@@ -171,6 +171,7 @@ public:
 	int setTempLimit(unsigned char ID, unsigned char Temperature);
 	int setAngleLimit(unsigned char ID, int CWLimit, int CCWLimit);
 	int setVoltageLimit(unsigned char ID, unsigned char DVoltage, unsigned char UVoltage);
+	int setTorqueLimit(unsigned char ID, int TorqueLimit);
 	int setMaxTorque(unsigned char ID, int MaxTorque);
 	int setSRL(unsigned char ID, unsigned char SRL);
 	int setRDT(unsigned char ID, unsigned char RDT);
