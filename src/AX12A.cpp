@@ -586,6 +586,29 @@ int AX12A::setAngleLimit(unsigned char ID, int CWLimit, int CCWLimit)
 	return (sendAXPacket(packet, length));
 }
 
+int AX12A::setTorqueLimit(unsigned char ID, int TorqueLimit) {
+	char TorqueLimit_H,TorqueLimit_L;
+    TorqueLimit_H = TorqueLimit >> 8;           // 16 bits - 2 x 8 bits variables
+    TorqueLimit_L = TorqueLimit;
+    
+	const unsigned int length = 9;
+	unsigned char packet[length];
+
+	Checksum = (~(ID + AX_MT_LENGTH + AX_WRITE_DATA + AX_TORQUE_LIMIT_L + TorqueLimit_L + TorqueLimit_H)) & 0xFF;
+
+	packet[0] = AX_START;
+	packet[1] = AX_START;
+	packet[2] = ID;
+	packet[3] = AX_MT_LENGTH;
+	packet[4] = AX_WRITE_DATA;
+	packet[5] = AX_TORQUE_LIMIT_L;
+	packet[6] = TorqueLimit_L;
+	packet[7] = TorqueLimit_H;
+	packet[8] = Checksum;
+	
+	return (sendAXPacket(packet, length));
+}
+
 int AX12A::setMaxTorque(unsigned char ID, int MaxTorque)
 {
     char MaxTorque_H,MaxTorque_L;
